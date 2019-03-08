@@ -1,48 +1,56 @@
 // array of questions put into objects, along with the different possible answers and one option that says which answer is correct
 // an image into the object also
 
-// arr = [
-//     0 = {
-//         que = "bears, beets, battlestar galactica?",
-//         ans =["jim", "dwight", "andy", "michael"],
-//         cor = 0,
-//         img = "./assets/images/jim.jpg"
-//     },
-//     1 = {
-//         ditto to above
-//     }]
+//Trivia Link https://www.proprofs.com/quiz-school/quizshow.php?title=ultimate-the-office-trivia-challenge&q=1
 
-// var curr;
-// var wins = 0;
-// var loss = 0;
+var arr = [
+    q1 = {
+        que: "bears, beets, battlestar galactica?",
+        ans: ["jim", "dwight", "andy", "michael"],
+        cor: 0,
+        img: "./assets/images/jim.jpg"
+    },
+    q2 = {
+        que: "bears, beets, battlestar galactica?",
+        ans: ["jim", "dwight", "andy", "michael"],
+        cor: 3,
+        img: "./assets/images/jim.jpg"
+    }
+]
 
-// function rdm() {
+var curr;
+var wins = 0;
+var loss = 0;
+var ct = 15;
 
-//     randomly pull the questions out of the length of the array
-//     curr = arr[rdm]
-// }
+function rdm() {
+    // randomly pull the questions out of the length of the array
+    random = Math.floor(Math.random() * arr.length);
+    curr = arr[random];
+}
 
-// timer for 15 seconds,
+rdm();
+// timer for 15 seconds
+setTimeout(function () {
+    timeUp();
+}, 15000);
 
-//     ct = 15
-// if (ct === 0) {
-//         move to solution
-//         sit for 4 seconds move to next question
-//         $("#que").empty().append("The correct answer was: " + curr.ans[cor])
-//         $("#img").empty().append("<img src=" + curr.img + " >"
-// }
+
+function timeup() {
+    // move to solution
+    // sit for 4 seconds move to next question
+    $("#que").empty().append("The correct answer was: " + curr.ans[cor]);
+    $("#img").empty().show().append("<img src=" + curr.img + ">");
+}
 
 // ** display **
 
 //     function nextQ() {
 //         #timer = 15
-//         ul#displayQ
 //         for (i < arr.que.length) {
 //             $("#que").empty().append("<h2>" + curr.que)
 //             $("#ques").empty().append("li").addClass("wrg").text(curr.que[i])
 //             maybe...$("#ques").children(curr.cor).removeClass("wrg").addClass("cor")
-//                 / ul
-
 //         }
 
 //     }
