@@ -8,21 +8,47 @@ var arr = [
         que: "bears, beets, battlestar galactica?",
         ans: ["jim", "dwight", "andy", "michael"],
         cor: 0,
-        img: "./assets/images/jim.jpg"
+        img: "./assets/images/bbbg.gif"
     },
     q2 = {
-        que: "bears, beets, battlestar galactica?",
-        ans: ["jim", "dwight", "andy", "michael"],
+        que: "In S1E1 'Pilot': Who started their first day at Dunder Mifflin Scranton?",
+        ans: ["Jim Halpert", "Ryan Howard", "Michael Scott", "Dwight Schrute"],
+        cor: 1,
+        img: "./assets/images/bbbg.gif"
+    },
+    q3 = {
+        que: "In S1E3 'Health Care': Which of these is NOT one of Jim and Pam's made up diseases?",
+        ans: ["Killer nanorobots", "Hot dog fingers", "Spontaneous dental hydroplosion", "Hair cancer"],
+        cor: 3,
+        img: "./assets/images/bbbg.gif"
+    },
+    q4 = {
+        que: "In S2E10 'Christmas Party': Who ends up with the Video iPod at the end of the episode?",
+        ans: ["Dwight", "Pam", "Ryan", "Michael"],
         cor: 0,
-        img: "./assets/images/jim.jpg"
+        img: "./assets/images/bbbg.gif"
+    },
+    q5 = {
+        que: "In S2E12 'The Injury': What is Michael's injury?",
+        ans: ["He gets his head stuck in a stair railing", "He crashes his car into a telephone pole", "He's run over by a co-worker", "He burns his foot on a George Foreman Grill"],
+        cor: 3,
+        img: "./assets/images/bbbg.gif"
+    },
+    q6 = {
+        que: "In S1E1 'Pilot': Who started their first day at Dunder Mifflin Scranton?",
+        ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+        cor: 1,
+        img: "./assets/images/bbbg.gif"
     }
 ]
 
 var curr;
 var wins = 0;
 var loss = 0;
-var ct = 15;
+// var ct = 15;
 
+
+// Start the game option!
 $("#play").on("click", function () {
     $("#play").hide();
     nextQ();
@@ -34,32 +60,31 @@ $("#play").on("click", function () {
 function nextQ() {
     // randomize question
     curr = arr[Math.floor(Math.random() * arr.length)];
+    $("#img").hide();
     // Add current questions
     $("#que").empty().append("<h2>" + curr.que)
     // add the different answers
     for (var i = 0; i < curr.ans.length; i++) {
         // add cor class to the correct answer
         if (curr.ans[i] === curr.ans[curr.cor]) {
-            $("#ques").append("<li class='cor'>" + curr.ans[i])
+            $("#ques").append("<button class='cor list-group-item'>" + curr.ans[i])
 
             // add wrg class to other elements
         } else {
-            $("#ques").append("<li class='wrg'>" + curr.ans[i])
+            $("#ques").append("<button class='wrg list-group-item'>" + curr.ans[i])
         }
-
     }
 
 
 
-    // setTimeout(function () {
-    //     $("#ques").empty();
-    //     timeUp();
-    // }, 1000 * 3);
+    setTimeout(function () {
+        $("#ques").empty();
+        timeUp();
+    }, 1000 * 3);
 
 }
 
-
-
+// When countdown finishes
 function timeUp() {
     // move to solution
     // sit for 4 seconds move to next question
@@ -70,21 +95,12 @@ function timeUp() {
     }, 1000 * 3);
 }
 
-// ** display **
-
-// $(".cor").click(function () {
-//     // e.preventDefault();
-//     wins++;
-//     setTimeout(() => {
-//         nextQ();
-
-//     }, 1000 * 3);
-// });
-
+// If choose correct option
 $(".cor").on("click", function () {
 
     alert("you clicked it")
     $("#que").empty().append("You got it!")
+    $("#img").empty().show().append("<img src =" + curr.img + ">");
     wins++;
     setTimeout(() => {
         nextQ();
@@ -92,19 +108,28 @@ $(".cor").on("click", function () {
     }, 1000 * 3);
 })
 
-// $("#wrg").on("click", function {
+// If choose a wrong option
+$(".wrg").on("click", function () {
 
-//     $("#que").empty().append("Sorry.... The correct answer was: " + curr.ans[cor])
-//     loss++;
-//     nextQ();
-// })
+    alert("you did it")
+    $("#que").empty().append("Sorry.... The correct answer was: " + curr.ans[cor])
+    loss++;
+    nextQ();
+})
 
-// if (wins + losses === 10) {
+// If wins and losses equal 10 start over option
+if (wins + loss === 10) {
 
-//     $#displayQ.empty()
-//     $stats.empty().append(<h3>+wins).append(<h3>+losses)
-//     restart button play again?
-//     }
+    // $(#displayQ.empty()
+    $("#stats").empty().show().append("<h3>" + wins).append("<h3>" + losses)
+    $("#play").empty().text("Play Again?").on("click", function () {
+        $("#stats").hide();
+        wins = 0;
+        loss = 0;
+        nextQ();
+    });
+}
+
 
 // function reset(){
 
