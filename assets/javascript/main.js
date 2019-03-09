@@ -13,7 +13,7 @@ var arr = [
     q2 = {
         que: "bears, beets, battlestar galactica?",
         ans: ["jim", "dwight", "andy", "michael"],
-        cor: 3,
+        cor: 0,
         img: "./assets/images/jim.jpg"
     }
 ]
@@ -23,44 +23,74 @@ var wins = 0;
 var loss = 0;
 var ct = 15;
 
-function rdm() {
-    // randomly pull the questions out of the length of the array
-    random = Math.floor(Math.random() * arr.length);
-    curr = arr[random];
+$("#play").on("click", function () {
+    $("#play").hide();
+    nextQ();
+
+
+});
+
+// timer for 15 seconds
+function nextQ() {
+    // randomize question
+    curr = arr[Math.floor(Math.random() * arr.length)];
+    // Add current questions
+    $("#que").empty().append("<h2>" + curr.que)
+    // add the different answers
+    for (var i = 0; i < curr.ans.length; i++) {
+        // add cor class to the correct answer
+        if (curr.ans[i] === curr.ans[curr.cor]) {
+            $("#ques").append("<li class='cor'>" + curr.ans[i])
+
+            // add wrg class to other elements
+        } else {
+            $("#ques").append("<li class='wrg'>" + curr.ans[i])
+        }
+
+    }
+
+
+
+    // setTimeout(function () {
+    //     $("#ques").empty();
+    //     timeUp();
+    // }, 1000 * 3);
+
 }
 
-rdm();
-// timer for 15 seconds
-setTimeout(function () {
-    timeUp();
-}, 15000);
 
 
-function timeup() {
+function timeUp() {
     // move to solution
     // sit for 4 seconds move to next question
-    $("#que").empty().append("The correct answer was: " + curr.ans[cor]);
+    $("#que").empty().append("<h2>The correct answer was: " + curr.ans[curr.cor]);
     $("#img").empty().show().append("<img src=" + curr.img + ">");
+    setTimeout(function () {
+        nextQ();
+    }, 1000 * 3);
 }
 
 // ** display **
 
-//     function nextQ() {
-//         #timer = 15
-//         for (i < arr.que.length) {
-//             $("#que").empty().append("<h2>" + curr.que)
-//             $("#ques").empty().append("li").addClass("wrg").text(curr.que[i])
-//             maybe...$("#ques").children(curr.cor).removeClass("wrg").addClass("cor")
-//         }
-
-//     }
-
-// $("#cor").on("click", function {
-
-//     $("#que").empty().append("You got it!")
+// $(".cor").click(function () {
+//     // e.preventDefault();
 //     wins++;
-//     nextQ();
-// })
+//     setTimeout(() => {
+//         nextQ();
+
+//     }, 1000 * 3);
+// });
+
+$(".cor").on("click", function () {
+
+    alert("you clicked it")
+    $("#que").empty().append("You got it!")
+    wins++;
+    setTimeout(() => {
+        nextQ();
+
+    }, 1000 * 3);
+})
 
 // $("#wrg").on("click", function {
 
@@ -82,5 +112,3 @@ function timeup() {
 // loss = 0
 
 //         nextQ();
-
-// }
