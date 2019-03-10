@@ -35,11 +35,77 @@ var arr = [
         img: "./assets/images/bbbg.gif"
     },
     q6 = {
-        que: "In S1E1 'Pilot': Who started their first day at Dunder Mifflin Scranton?",
-        ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
-        cor: 1,
+        que: "In S2E17 'Dwight 's Speech': What infamous dictator's speech does Jim trick Dwight into giving at the sales conference?",
+        ans: ["Adolf Hitler", "Kim Jong II", "Joseph Stalin", "Benito Mussolini"],
+        cor: 0,
         img: "./assets/images/bbbg.gif"
-    }
+    },
+    q7 = {
+        que: "In S2E19 'Michael's Birthday': Who has a cancer scare?",
+        ans: ["Angela", "Dwight", "Kevin", "Michael"],
+        cor: 2,
+        img: "./assets/images/bbbg.gif"
+    },
+    q8 = {
+        que: "In S2E22 'Casino Night' Who has two dates?",
+        ans: ["Michael", "Jim", "Pam", "Creed"],
+        cor: 0,
+        img: "./assets/images/bbbg.gif"
+    },
+    q9 = {
+        que: "In S3E5 'Initiation' What song does Jim sing to annoy Karen?",
+        ans: ["Lovefool by The Cardigans", "Kiss Me by Six Pence None the Richer", "Barbie Girl by Aqua", "Barbie Girl by Aqua"],
+        cor: 0,
+        img: "./assets/images/bbbg.gif"
+    },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
+    // q10 = {
+    //     que: "que",
+    //     ans: ["JimHalpert", "RyanHoward", "Michaelcott", "DwightSchrute"],
+    //     cor: 1,
+    //     img: "./assets/images/bbbg.gif"
+    // },
 ]
 
 var curr;
@@ -74,15 +140,38 @@ function nextQ() {
             $("#ques").append("<button class='wrg list-group-item'>" + curr.ans[i])
         }
     }
-
-
-
     setTimeout(function () {
         $("#ques").empty();
         timeUp();
-    }, 1000 * 3);
+    }, 1000 * 10);
+
 
 }
+
+// If choose a wrong option
+$("#ques").on("click", ".wrg", function () {
+
+    $("#que").empty().append("Sorry.... The correct answer was: " + curr.ans[cor])
+    $("#ques").empty();
+    loss++;
+    nextQ();
+})
+
+// If choose correct option
+$("#ques").on("click", ".cor", function () {
+
+    $("#que").empty().append("You got it!")
+    // $("#img").empty().show().append("<img src =" + curr.img + ">");
+    $("#ques").empty();
+    wins++;
+    setTimeout(() => {
+        nextQ();
+
+    }, 1000 * 3);
+})
+
+
+
 
 // When countdown finishes
 function timeUp() {
@@ -95,27 +184,9 @@ function timeUp() {
     }, 1000 * 3);
 }
 
-// If choose correct option
-$(".cor").on("click", function () {
 
-    alert("you clicked it")
-    $("#que").empty().append("You got it!")
-    $("#img").empty().show().append("<img src =" + curr.img + ">");
-    wins++;
-    setTimeout(() => {
-        nextQ();
 
-    }, 1000 * 3);
-})
 
-// If choose a wrong option
-$(".wrg").on("click", function () {
-
-    alert("you did it")
-    $("#que").empty().append("Sorry.... The correct answer was: " + curr.ans[cor])
-    loss++;
-    nextQ();
-})
 
 // If wins and losses equal 10 start over option
 if (wins + loss === 10) {
